@@ -1,25 +1,35 @@
 from selenium import webdriver
-import time
 from tkinter import *
+from pynput.keyboard import Key, Listener
+from pyautogui import press, typewrite, hotkey
+import threading
+import os.path
+import time
 import csv
+
+
+if os.path.exists("trades.csv"):
+    pass
+else:
+    csvfile = open("trades.csv", "w")
 
 driver = webdriver.Chrome()
 driver.get("https://www.tradingview.com/#signin")
 
 username = driver.find_element_by_name('username')
-username.send_keys(' ')
+username.send_keys('')
 
 password = driver.find_element_by_name('password')
-password.send_keys(' ')
+password.send_keys('')
 
 
 driver.find_element_by_css_selector('.tv-button__loader').click()
 
-time.sleep(1.5)
+time.sleep(2)
 
 driver.get("https://www.tradingview.com/chart")
 
-OrderType = "---"
+OrderType = "No Position"
 Order = "---"
 Close = 0
 Open = 0
@@ -92,13 +102,15 @@ def sell():
         print("Open " + str(OrderType) + " @ " + str(getPrice()))
 
 
-
 root = Tk()
+root.configure(background='#313335')
 
 tk_OrderType = StringVar()
 tk_Open = StringVar()
 tk_Open.set(str(Open))
 tk_OrderType.set(str(OrderType))
+root.wm_attributes("-topmost", 1)
+root.lift()
 
 def buttonClick(option):
     if option is "Buy":
@@ -111,19 +123,20 @@ def buttonClick(option):
 
 root.geometry("500x500")
 
-topFrame = Frame(root)
+topFrame = Frame(root, background='#313335')
 topFrame.pack(side=TOP)
 midFrame = Frame(root)
 midFrame.pack(fill=X)
 bottomFrame = Frame(root, width=256)
 bottomFrame.pack(side=BOTTOM, fill=X)
 
-labelOrderType = Label(topFrame, textvariable=tk_OrderType, font='Arial 18 bold')
-labelOrder = Label(topFrame, textvariable=tk_Open, font='Arial 36 bold')
+labelOrderType = Label(topFrame, textvariable=tk_OrderType, font='Arial 18 bold', bg='#313335', fg="#F1F3F4")
+labelOrder = Label(topFrame, textvariable=tk_Open, font='Arial 36 bold', bg='#313335', fg="#F1F3F4")
 labelOrder.pack(side=BOTTOM)
 labelOrderType.pack()
 
-tradesList = Listbox(midFrame, fg="black", font='Arial 16 bold')
+tradesList = Listbox(midFrame, font='Arial 16 bold', bg="#3C3F41", borderwidth=0, fg="#F1F3F4")
+tradesList.config(relief=FLAT)
 tradesList.pack(fill=X)
 
 reader = csv.reader(open("trades.csv", "r", newline=""))
@@ -132,13 +145,33 @@ for row in reader:
     tradesList.insert(END, str(row))
 
 
+def on_press(key):
+    key_press = key
+    if str(key_press) == "Key.f7":
+        buttonClick("Buy")
+        hotkey('alt', 'v')
+    if str(key_press) == "Key.f8":
+        buttonClick("Sell")
+        hotkey('alt', 'v')
+
+def startListen():
+    with Listener(on_press=on_press) as listener:
+        listener.join()
+
+listenThread = threading.Thread(target=lambda: startListen())
+listenThread.start()
+
 
 buttonBuy = Button(bottomFrame, text="BUY", bg="#53b987", fg="white", command = lambda: buttonClick("Buy"), font='Arial 16 bold')
-buttonSell = Button(bottomFrame, text="SELL", bg="#eb4d5c", fg="white",command = lambda: buttonClick("Sell"), font='Arial 16 bold')
+buttonSell = Button(bottomFrame, text="SELL", bg="#eb4d5c", fg="white", command = lambda: buttonClick("Sell"), font='Arial 16 bold')
+buttonBuy.config(relief=FLAT)
+buttonSell.config(relief=FLAT)
 buttonBuy.pack(side=TOP, fill=X)
 buttonSell.pack(fill=X)
 
-root.wm_attributes("-topmost", 1)
-root.lift()
+
+
 root.mainloop()
 driver.close()
+listenThread.daemon = True
+exit()
