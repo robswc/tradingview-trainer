@@ -40,6 +40,14 @@ def writeCsv(input):
     writer = csv.writer(csvfile)
     writer.writerow(input)
 
+def titleCsv():
+    tradesList.delete('0', 'end')
+    csvfile = open("trades.csv", "a")
+    writer = csv.writer(csvfile)
+    pair = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[1]").text
+    timeFrame = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[2]").text
+    exchange = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[3]").text
+    writer.writerow([str(pair) + str(timeFrame) + str(exchange)])
 
 def getPrice():
     price = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
@@ -112,6 +120,27 @@ tk_OrderType.set(str(OrderType))
 root.wm_attributes("-topmost", 1)
 root.lift()
 
+optionsBar = Frame(root)
+optionsBar.pack(side=TOP, fill=X)
+topFrame = Frame(root, background='#313335')
+topFrame.pack(side=TOP)
+midFrame = Frame(root)
+midFrame.pack(fill=X)
+bottomFrame = Frame(root, width=256)
+bottomFrame.pack(side=BOTTOM, fill=X)
+
+tradesList = Listbox(midFrame, font='Arial 16 bold', bg="#3C3F41", borderwidth=0, fg="#F1F3F4")
+tradesList.config(relief=FLAT)
+tradesList.pack(fill=X)
+
+
+def updateTrades():
+    tradesList.delete('1', 'end')
+    reader = csv.reader(open("trades.csv", "r", newline=""))
+    for row in reader:
+        print(str(row))
+        tradesList.insert(END, str(row))
+
 def buttonClick(option):
     if option is "Buy":
         buy()
@@ -120,30 +149,14 @@ def buttonClick(option):
 
     tk_Open.set(str(getPrice()))
     tk_OrderType.set(str(OrderType))
+    updateTrades()
 
 root.geometry("500x500")
-
-topFrame = Frame(root, background='#313335')
-topFrame.pack(side=TOP)
-midFrame = Frame(root)
-midFrame.pack(fill=X)
-bottomFrame = Frame(root, width=256)
-bottomFrame.pack(side=BOTTOM, fill=X)
 
 labelOrderType = Label(topFrame, textvariable=tk_OrderType, font='Arial 18 bold', bg='#313335', fg="#F1F3F4")
 labelOrder = Label(topFrame, textvariable=tk_Open, font='Arial 36 bold', bg='#313335', fg="#F1F3F4")
 labelOrder.pack(side=BOTTOM)
 labelOrderType.pack()
-
-tradesList = Listbox(midFrame, font='Arial 16 bold', bg="#3C3F41", borderwidth=0, fg="#F1F3F4")
-tradesList.config(relief=FLAT)
-tradesList.pack(fill=X)
-
-reader = csv.reader(open("trades.csv", "r", newline=""))
-for row in reader:
-    print(str(row))
-    tradesList.insert(END, str(row))
-
 
 def on_press(key):
     key_press = key
@@ -162,6 +175,9 @@ listenThread = threading.Thread(target=lambda: startListen())
 listenThread.start()
 
 
+buttonPair = Button(optionsBar, text="------", bg="grey", fg="white", command = lambda: buttonClick("Buy"), font='Arial 9 bold')
+buttonPair.pack(side=RIGHT)
+
 buttonBuy = Button(bottomFrame, text="BUY", bg="#53b987", fg="white", command = lambda: buttonClick("Buy"), font='Arial 16 bold')
 buttonSell = Button(bottomFrame, text="SELL", bg="#eb4d5c", fg="white", command = lambda: buttonClick("Sell"), font='Arial 16 bold')
 buttonBuy.config(relief=FLAT)
@@ -169,8 +185,9 @@ buttonSell.config(relief=FLAT)
 buttonBuy.pack(side=TOP, fill=X)
 buttonSell.pack(fill=X)
 
+time.sleep(2)
 
-
+titleCsv()
 root.mainloop()
 driver.close()
 listenThread.daemon = True
