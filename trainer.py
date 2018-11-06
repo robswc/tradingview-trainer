@@ -4,6 +4,7 @@ from pynput.keyboard import Key, Listener
 from pyautogui import press, typewrite, hotkey
 import threading
 import os.path
+import config
 import time
 import csv
 
@@ -17,10 +18,10 @@ driver = webdriver.Chrome()
 driver.get("https://www.tradingview.com/#signin")
 
 username = driver.find_element_by_name('username')
-username.send_keys('')
+username.send_keys(str(config.un))
 
 password = driver.find_element_by_name('password')
-password.send_keys('')
+password.send_keys(str(config.pw))
 
 
 driver.find_element_by_css_selector('.tv-button__loader').click()
@@ -58,7 +59,7 @@ def getProfit():
     global Close
     global profit
     global OrderType
-    profit = abs(float(Open) - float(Close)) / (float(Open)) * 100
+    profit = abs((float(Open) - float(Close)) / (float(Open)) * 100) - config.fee * 2
     if OrderType is "Long":
         if Open < Close:
             print("Gain")
