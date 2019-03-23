@@ -1,7 +1,7 @@
-from pyautogui import press, typewrite, hotkey
-from pynput.keyboard import Key, Listener
+from pyautogui import hotkey
+from pynput.keyboard import Listener
 from selenium import webdriver
-from colorama import Fore, Back, Style, init
+from colorama import Fore, Style, init
 import locale
 import threading
 import os.path
@@ -25,7 +25,18 @@ else:
 
 # Set driver to chromedriver.exe
 driver = webdriver.Chrome()
-
+print('''
+ _______     __  _____          _                 
+|_   _\ \   / / |_   _| __ __ _(_)_ __   ___ _ __ 
+  | |  \ \ / /____| || '__/ _` | | '_ \ / _ \ '__|
+  | |   \ V /_____| || | | (_| | | | | |  __/ |   
+  |_|    \_/      |_||_|  \__,_|_|_| |_|\___|_|   
+                                                  
+''')
+print(Fore.CYAN + 'Created by Rob')
+print(Fore.YELLOW + 'https://github.com/Robswc/tradingview-trainer')
+print(Style.DIM + 'GLHF')
+print('\n')
 
 if config.un == 'REPLACE W/YOUR USERNAME':
     print(Fore.RED + 'No Username Set, opening chart')
@@ -36,8 +47,11 @@ if config.un == 'REPLACE W/YOUR USERNAME':
     driver.get("https://www.tradingview.com/chart")
 
 elif config.un == 'MANUAL':
+    print(Fore.RED + 'No Username Set, credentials to be entered manually')
+    print(Style.DIM + 'Enter your username and password into tradingview.com')
+    print('\n')
     driver.get("https://www.tradingview.com/#signin")
-    input("Press Enter to continue...")
+    input("Press Enter *after* you have logged into tradingview...")
     driver.get("https://www.tradingview.com/chart")
 
 else:
@@ -84,21 +98,17 @@ def get_profit():
     profit = abs((float(Open) - float(Close)) / (float(Open)) * 100)
     if order_type is "Long":
         if Open < Close:
-            #print(Style.RESET_ALL + Fore.LIGHTGREEN_EX + "Gain")
             print(Style.RESET_ALL + Fore.LIGHTGREEN_EX)
             profit = (profit * 1) - config.fee * 2
         else:
-            #print(Style.RESET_ALL + Fore.LIGHTRED_EX + "Loss")
             print(Style.RESET_ALL + Fore.LIGHTRED_EX)
             profit = (profit * -1) - config.fee * 2
 
     if order_type is "Short":
         if Open > Close:
-            #print(Style.RESET_ALL + Fore.LIGHTGREEN_EX + "Gain")
             print(Style.RESET_ALL + Fore.LIGHTGREEN_EX)
             profit = (profit * 1) - config.fee * 2
         else:
-            #print(Style.RESET_ALL + Fore.LIGHTRED_EX + "Loss")
             print(Style.RESET_ALL + Fore.LIGHTRED_EX)
             profit = (profit * -1) - config.fee * 2
 
@@ -118,14 +128,12 @@ def buy():
         print("PL%: " + str(get_profit()) + "%")
         print("Profit: " + str(locale.currency(account_value + ((account_value * profit) * 0.01) - account_value, grouping=True)))
         write_csv('\n' + str(order_type) + " " + str(Open) + " " + str(get_price()) + " " + str(get_profit()))
-        #print("ACCOUNT:" + str(account_value) + " = " + str(account_value) + " * " + str(profit))
         order_type = "Close"
         update_account_value(profit)
     else:
         Open = get_price()
         order_type = "Long"
         print(Style.BRIGHT + Fore.GREEN + "Open " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ " + str(get_price()))
-    #print(Style.RESET_ALL + 'Account Value: ' + str(locale.currency(account_value, grouping=True)) + value_change_format())
 
     print('\n')
 
@@ -138,10 +146,10 @@ def sell():
     if order_type is "Long":
         Close = get_price()
         print(Fore.LIGHTMAGENTA_EX + "Close " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ " + Fore.LIGHTYELLOW_EX + str(get_price()) + Style.RESET_ALL)
-        print("Profit: " + str(get_profit()) + "%")
+        print("PL%: " + str(get_profit()) + "%")
+        print("Profit: " + str(locale.currency(account_value + ((account_value * profit) * 0.01) - account_value, grouping=True)))
         write_csv('\n' + str(order_type) + " " + str(Open) + " " + str(get_price()) + " " + str(get_profit()))
         account_value = account_value + ((account_value * profit) * 0.01)
-        #print("ACCOUNT:" + str(account_value) + " = " + str(account_value) + " * " + str(profit))
         order_type = "Close"
         update_account_value(profit)
     else:
