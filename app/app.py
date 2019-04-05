@@ -86,8 +86,12 @@ def update_account_value(profit):
     print(Style.RESET_ALL + 'Account Value: ' + str(locale.currency(account_value, grouping=True)) + value_change_format(previous_value, new_value))
 
 def get_price():
-    return driver.find_element_by_xpath(
-        "/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
+	try:
+		return driver.find_element_by_xpath(
+			"/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
+	except:
+		return driver.find_element_by_xpath(
+			"/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
 
 def get_profit():
     global Open
