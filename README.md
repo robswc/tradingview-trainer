@@ -42,7 +42,7 @@ I know not everyone wants to deal with python.  That's why I have compiled an ex
 
 You will also need chromedriver, which can be found here:
 
-![what is chromedriver?](http://chromedriver.chromium.org/)
+[what is chromedriver?](http://chromedriver.chromium.org/)
 
 Place both executables within the same folder and then run app.exe.  You will be brought to tradingview's log-in page.  You can either sign-in or hit enter.  It will then re-direct to the charts page.
 
