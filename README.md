@@ -38,9 +38,13 @@ python app.py
 And that's it!  You can delete the 'dist' folder by the way, as you won't need it for the python version.
 
 ### Executable
-I know not everyone wants to deal with python.  That's why I have compiled an executable!  You can get the executable here:
+I know not everyone wants to deal with python.  That's why I have compiled an executable!  You can download it here:
 
-You will also need chromedriver, which can be found here:
+http://robswc.me/files/tradingview-trainer.zip
+
+The download comes with Chromedriver, both must be in the same directory when launching, or else it will not work.
+
+Extract the .zip file and run the app.exe.
 
 [what is chromedriver?](http://chromedriver.chromium.org/)
 
