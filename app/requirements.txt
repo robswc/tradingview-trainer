@@ -1,0 +1,4 @@
+pyautogui
+pynput
+selenium
+colorama
