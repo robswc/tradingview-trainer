@@ -2,6 +2,10 @@ from pyautogui import hotkey
 from pynput.keyboard import Listener
 from selenium import webdriver
 from colorama import Fore, Style, init
+import urllib.request
+import zipfile
+import webbrowser
+import requests
 import locale
 import threading
 import os.path
@@ -24,7 +28,18 @@ else:
     trades_file = open("trades.csv", "w")
 
 # Set driver to chromedriver.exe
-driver = webdriver.Chrome()
+try:
+    driver = webdriver.Chrome()
+except Exception as e:
+    # UPDATE CHROME DRIVER
+    print(Fore.RED + '+ Error Involving Chrome Driver + \n')
+    print(str(e) + '\n')
+    print('Visit: https://github.com/Robswc/tradingview-trainer/wiki/Errors')
+    print('Report this error here: https://github.com/Robswc/tradingview-trainer/issues')
+    input()
+    quit()
+
+
 print('''
  _______     __  _____          _                 
 |_   _\ \   / / |_   _| __ __ _(_)_ __   ___ _ __ 
@@ -38,13 +53,20 @@ print(Fore.YELLOW + 'https://github.com/Robswc/tradingview-trainer')
 print(Style.DIM + 'GLHF')
 print('\n')
 
+def get_chart():
+    try:
+        driver.get("https://www.tradingview.com/chart")
+    except:
+        print(driver.capabilities['version'])
+
+
 if config.un == 'REPLACE W/YOUR USERNAME':
     print(Fore.RED + 'No Username Set, opening chart')
     print(Fore.YELLOW + 'For timeframes lower than 1 Day, you must have a tradingview account.')
     print(Style.DIM + 'Once you have an account, set your username/password in the config.py file.')
     print(Style.DIM + 'If you prefer to enter credentials manually, you can set un = "MANUAL"')
     print('\n')
-    driver.get("https://www.tradingview.com/chart")
+    get_chart()
 
 elif config.un == 'MANUAL':
     print(Fore.RED + 'No Username Set, credentials to be entered manually')
@@ -52,7 +74,7 @@ elif config.un == 'MANUAL':
     print('\n')
     driver.get("https://www.tradingview.com/#signin")
     input("Press Enter *after* you have logged into tradingview...")
-    driver.get("https://www.tradingview.com/chart")
+    get_chart()
 
 else:
     # If Username/Password is set, go to sign in screen first and log in
@@ -63,7 +85,7 @@ else:
     driver.find_element_by_name('password').send_keys(str(config.pw))
     driver.find_element_by_css_selector('.tv-button__loader').click()
     time.sleep(config.sleep)
-    driver.get("https://www.tradingview.com/chart")
+    get_chart()
 
 
 def write_csv(input):
