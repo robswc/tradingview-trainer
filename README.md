@@ -40,7 +40,7 @@ And that's it!  You can delete the 'dist' folder by the way, as you won't need i
 ### Executable
 I know not everyone wants to deal with python.  That's why I have compiled an executable!  You can download it here:
 
-http://robswc.me/files/tradingview-trainer.zip
+http://robswc.me/files/tradingview-trainer-cdv-74.zip
 
 The download comes with Chromedriver, both must be in the same directory when launching, or else it will not work.
 

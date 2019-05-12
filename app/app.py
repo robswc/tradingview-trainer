@@ -71,6 +71,7 @@ if config.un == 'REPLACE W/YOUR USERNAME':
 elif config.un == 'MANUAL':
     print(Fore.RED + 'No Username Set, credentials to be entered manually')
     print(Style.DIM + 'Enter your username and password into tradingview.com')
+    print(Style.DIM + 'Or, hit enter to continue without signing in.')
     print('\n')
     driver.get("https://www.tradingview.com/#signin")
     input("Press Enter *after* you have logged into tradingview...")

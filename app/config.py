@@ -2,8 +2,8 @@
 # un = 'MANUAL' if you wish to log in manually, rather than have credentials
 # stored in the config file.
 
-un = 'REPLACE W/YOUR USERNAME'
-pw = 'REPLACE W/YOUR PASSWORD'
+un = 'MANUAL'
+pw = 'MANUAL'
 fee = 0.16
 initial_amount = 10000
 
