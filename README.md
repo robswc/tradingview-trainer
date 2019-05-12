@@ -46,6 +46,16 @@ The download comes with Chromedriver, both must be in the same directory when la
 
 Extract the .zip file and run the app.exe.
 
+### IMPORTANT:
+
+Depending on your chrome version, you may need to download a different version of chrome driver.  You can check your Version of chrome by going here: chrome://settings/help
+
+If the app instantly closes itself, try downloading a chromedriver for your version of chrome from here:
+
+http://chromedriver.chromium.org/downloads
+
+Currently, since many are on different versions of chrome, this is the easiest/only solution for the moment.
+
 [what is chromedriver?](http://chromedriver.chromium.org/)
 
 Place both executables within the same folder and then run app.exe.  You will be brought to tradingview's log-in page.  You can either sign-in or hit enter.  It will then re-direct to the charts page.
