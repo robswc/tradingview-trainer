@@ -1,6 +1,8 @@
 # Tradingview-Trainer
 ![demopic](img/demo.gif)
 
+Tradingview-Trainer is a small app, made with python to help one practice their trading of historical data on the tradingview website.  Similar to ThinkOrSwim's onDemand, just much more lightweight.
+
 ## How to Use
 Once installed, run the app.  It will open tradingview in a browser window.  Pressing the **F7 Key** will open a long position at the cursors location.  Pressing the **F8 Key** will open a short position, or if you are currently long, will close the long position and vice versa.  
 
