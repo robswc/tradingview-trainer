@@ -29,7 +29,10 @@ else:
 
 # Set driver to chromedriver.exe
 try:
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--ignore-ssl-errors')
+    driver = webdriver.Chrome(chrome_options=options)
 except Exception as e:
     # UPDATE CHROME DRIVER
     print(Fore.RED + '+ Error Involving Chrome Driver + \n')
@@ -53,6 +56,25 @@ print(Fore.YELLOW + 'https://github.com/Robswc/tradingview-trainer')
 print(Style.DIM + 'GLHF')
 print('\n')
 
+
+def config_menu():
+    # config_input = []
+    config_input = input('Test')
+    config_input = config_input.split()
+    time.sleep(1)
+    print(str(config_input))
+    # set(str(config_input[1]), config_input[2])
+
+
+def set(option, value):
+    if option is 'fee':
+        config.fee = float(value)
+        print("Fee set to: " + str(value))
+    if option is 'account':
+        config.initial_amount = float(value)
+        print("Account Value set to: " + str(value))
+
+
 def get_chart():
     try:
         driver.get("https://www.tradingview.com/chart")
@@ -74,7 +96,11 @@ elif config.un == 'MANUAL':
     print(Style.DIM + 'Or, hit enter to continue without signing in.')
     print('\n')
     driver.get("https://www.tradingview.com/#signin")
-    input("Press Enter *after* you have logged into tradingview...")
+    print("Press Enter *after* you are ready.")
+    input()
+    # first_input = input("Type '/config' for more options.")
+    # if first_input == '/config':
+    #     config_menu()
     get_chart()
 
 else:
@@ -90,10 +116,15 @@ else:
 
 
 def write_csv(input):
-    input = input.split()
-    trades_file = open("trades.csv", "a", newline="")
-    writer = csv.writer(trades_file)
-    writer.writerow(input)
+    try:
+        input = input.split()
+        trades_file = open("trades.csv", "a", newline="")
+        writer = csv.writer(trades_file)
+        writer.writerow(input)
+    except Exception as e:
+        print('Error while writing to csv: \n' + str(e) +
+              '\n Please report on github: https://github.com/Robswc/tradingview-trainer/issues')
+
 
 def value_change_format(a, b):
     if a <= b:
@@ -101,20 +132,24 @@ def value_change_format(a, b):
     else:
         return str(Fore.RED + '▼')
 
+
 def update_account_value(profit):
     global account_value
     previous_value = account_value
     new_value = account_value + ((account_value * profit) * 0.01)
     account_value = account_value + ((account_value * profit) * 0.01)
-    print(Style.RESET_ALL + 'Account Value: ' + str(locale.currency(account_value, grouping=True)) + value_change_format(previous_value, new_value))
+    print(Style.RESET_ALL + 'Account Value: ' + str(locale.currency(account_value, grouping=True))
+          + value_change_format(previous_value, new_value))
+
 
 def get_price():
-	try:
-		return driver.find_element_by_xpath(
-			"/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
-	except:
-		return driver.find_element_by_xpath(
-			"/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
+    try:
+        return driver.find_element_by_xpath(
+            "/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tbody/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
+    except:
+        return driver.find_element_by_xpath(
+            "/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]").text
+
 
 def get_profit():
     global Open
@@ -151,7 +186,8 @@ def buy():
     if order_type is "Short":
         Close = get_price()
         time.sleep(0.1)
-        print(Fore.LIGHTMAGENTA_EX + "Close " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ " + Fore.LIGHTYELLOW_EX + str(get_price()) + Style.RESET_ALL)
+        print(Fore.LIGHTMAGENTA_EX + "Close " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ "
+              + Fore.LIGHTYELLOW_EX + str(get_price()) + Style.RESET_ALL)
         print("PL%: " + str(get_profit()) + "%")
         print("Profit: " + str(locale.currency(account_value + ((account_value * profit) * 0.01) - account_value, grouping=True)))
         write_csv('\n' + str(order_type) + " " + str(Open) + " " + str(get_price()) + " " + str(get_profit()))
@@ -160,7 +196,8 @@ def buy():
     else:
         Open = get_price()
         order_type = "Long"
-        print(Style.BRIGHT + Fore.GREEN + "Open " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ " + str(get_price()))
+        print(Style.BRIGHT + Fore.GREEN + "Open " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ "
+              + str(get_price()))
 
     print('\n')
 
@@ -172,7 +209,8 @@ def sell():
     global Close
     if order_type is "Long":
         Close = get_price()
-        print(Fore.LIGHTMAGENTA_EX + "Close " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ " + Fore.LIGHTYELLOW_EX + str(get_price()) + Style.RESET_ALL)
+        print(Fore.LIGHTMAGENTA_EX + "Close " + str(order_type) + Style.RESET_ALL + Style.DIM + " @ "
+              + Fore.LIGHTYELLOW_EX + str(get_price()) + Style.RESET_ALL)
         print("PL%: " + str(get_profit()) + "%")
         print("Profit: " + str(locale.currency(account_value + ((account_value * profit) * 0.01) - account_value, grouping=True)))
         write_csv('\n' + str(order_type) + " " + str(Open) + " " + str(get_price()) + " " + str(get_profit()))
@@ -201,6 +239,8 @@ def on_press(key):
     if str(key_press) == "Key.f8":
         button_click("Sell")
         hotkey('alt', 'v')
+    if str(key_press) == "Key.f9":
+        config_menu()
 
 
 def start_listen():
