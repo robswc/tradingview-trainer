@@ -1,6 +1,11 @@
 # Tradingview-Trainer
 ![demopic](img/tv-gui-banner.jpg)
 
+![license](https://img.shields.io/apm/l/vim-mode.svg)
+![commits](https://img.shields.io/github/commit-activity/m/robswc/tradingview-trainer.svg?label=commits)
+![size](https://img.shields.io/github/repo-size/robswc/tradingview-trainer.svg?label=size)
+![follow](https://img.shields.io/twitter/follow/robswc.svg?style=social)
+
 Tradingview-Trainer is a small app, made with python to help one practice their trading of historical data on the tradingview website.  Similar to ThinkOrSwim's onDemand, just much more lightweight.
 
 ## How to Use
