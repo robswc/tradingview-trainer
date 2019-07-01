@@ -1,5 +1,5 @@
 # Tradingview-Trainer
-![demopic](img/demo.gif)
+![demopic](img/tv-gui-banner.jpg)
 
 Tradingview-Trainer is a small app, made with python to help one practice their trading of historical data on the tradingview website.  Similar to ThinkOrSwim's onDemand, just much more lightweight.
 
