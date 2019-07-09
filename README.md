@@ -1,5 +1,5 @@
 ![demopic](img/tv-gui-banner.jpg)
-# Tradingview-Trainer
+
 tv-trainer is an lightweight application written in **python** using selenium and Tkinter, designed to work with tradingview.com to help users practice their trading on **historical data**.
 
 # Installation
