@@ -1,6 +1,14 @@
 
 ![demopic](img/tv-gui-banner.jpg)
 
+![](https://img.shields.io/github/license/robswc/tradingview-trainer.svg)
+![](https://img.shields.io/github/commit-activity/y/robswc/tradingview-trainer.svg)
+![](https://img.shields.io/github/repo-size/robswc/tradingview-trainer.svg)
+![](https://img.shields.io/twitter/follow/robswc.svg?label=follow%20%40%20robswc&style=social)
+
+
+
+
 # Tradingview-trainer
 
 tv-trainer is a lightweight application written in **python** using **selenium** and **Tkinter**, designed to work with tradingview.com to help users practice their trading on **historical data**.
