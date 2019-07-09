@@ -1,66 +1,50 @@
 # Tradingview-Trainer
-![demopic](img/demo.gif)
+![demopic](img/tv-gui-banner.jpg)
+tv-trainer is an lightweight application written in **python** using selenium and Tkinter, designed to work with tradingview.com to help users practice their trading on **historical data**.
 
-Tradingview-Trainer is a small app, made with python to help one practice their trading of historical data on the tradingview website.  Similar to ThinkOrSwim's onDemand, just much more lightweight.
+# Installation
+tv-trainer comes in two forms, the executable version and the python version.
 
-## How to Use
-Once installed, run the app.  It will open tradingview in a browser window.  Pressing the **F7 Key** will open a long position at the cursors location.  Pressing the **F8 Key** will open a short position, or if you are currently long, will close the long position and vice versa.  
+[**Python Version**](https://github.com/Robswc/tradingview-trainer/wiki/Python-Installation)
 
-Once you are finished, simply close the trainer window.  A csv file will be generated, containing your trades.
+[**Executable Version**](https://github.com/Robswc/tradingview-trainer/wiki/Executable-Installation)
 
-## Installation
-It is recommended to use the python version of this app.  It will be updated more frequently and allows for more user settings.
+# How to Use
 
-### Python
+## Getting Started
+To launch the executable version, double click the `app.exe` after extracting the .zip.  To launch the python version, run in a command line, in the `app.py` directory; `python app.py`.  After the app luanches, a browswer window to tradingview.com's sign-in page will open.  As of May 2019, you will need to have an account to access the replay function (accounts are free to create!).  Sign in with your credentials and then navigate to your chart.
 
-If you are familiar with python, you can just clone the repo and run.
+Once you have configured your chart to your liking, you are ready to start! Click the `bar replay` button in the top nav bar of the chart.  Move the vertical red line to the time you wish to start practicing on the historical data and click.  Next, move to the tv-trainer window.  Click the `▮▶` next bar button.  This will advance the chart 1 bar and get the information to the tv-trainer app.  Keep in mind, the values you see in the tv-trainer app represent the close of the previous bar, values are only updated during user actions.  You are now ready to place your orders!
 
-If you aren't familiar with python that's ok, its easy to install and run!
+## Orders
 
-Download Python 3.(anything number) here:
+There are two types of orders available with tv-trainer.  The two most basic orders intrinsic to most exchanges.  The [limit order](https://www.investopedia.com/terms/l/limitorder.asp) and the [market order](https://www.investopedia.com/terms/m/marketorder.asp).
 
-https://www.python.org/downloads/
+**Market Order**
 
-Download this repo (app) with this link:
+To submit a simulated market order, ensure `market` is selected via radio-button near the top of the app.  When you reach a point where you feel you wish to buy, click `Buy`.  When you reach a point where you wish to sell, click `Sell`.  Your order will instantly be executed, using simulated [FIFO](https://github.com/Robswc/tradingview-trainer/wiki/FIFO).
 
-https://github.com/Robswc/tradingview-trainer/archive/master.zip
+**Limit Order**
 
-Once both are downloaded, unzip the tradingview-trainer.zip file.  Open a terminal in the tradingview-trainer/app directory and run the command:
+To submit a simulated limit order, ensure `limit` is selected via radio-button near the top of the app.  Next, type in the limit price entry box the price of your limit order.  You can also click `last` to auto-fill the last close, making it easier to quickly change the price.  Once the price crosses or touches your limit order, the order will be executed at the limit price, using simulated [FIFO](https://github.com/Robswc/tradingview-trainer/wiki/FIFO).
 
-```
-pip install -r requirements.txt
-```
+**FIFO**
 
-Next, run the command:
+A more detailed explaination can be found [here](https://github.com/Robswc/tradingview-trainer/wiki/FIFO).  FIFO stands for "First In First Out".  This means orders are filled in the order they are submitted.  For this app, since there are only the user orders, the best part of FIFO (in my humble opinion) has been simulated.  Simply put, when you are long you are `100 APPL @ $100` for example.  When you are short, you are `-100 APPL @ $100`.  To close a short/long simply make your position = 0.  Again, a more detailed explaination can be found [here](https://github.com/Robswc/tradingview-trainer/wiki/FIFO).
 
-```
-python app.py
-```
+### Exiting
 
-And that's it!  You can delete the 'dist' folder by the way, as you won't need it for the python version.
+Upon exiting, a file named `trades.csv` is created.  This contains your trades, it can be easily viewed with excel or similar.  When you exit, ensure both the chromedriver browser and tv-trainer window are closed.  If you run into any issues please report them! https://github.com/Robswc/tradingview-trainer/issues
 
-### Executable
-I know not everyone wants to deal with python.  That's why I have compiled an executable!  You can download it here:
+### Common Errors and how to fix them
 
-http://robswc.me/files/tradingview-trainer-cdv-74.zip
+You can check out the wiki page: https://github.com/Robswc/tradingview-trainer/wiki/Errors 
 
-The download comes with Chromedriver, both must be in the same directory when launching, or else it will not work.
+This will list and show you how to fix the more common errors.
 
-Extract the .zip file and run the app.exe.
+### About
 
-### IMPORTANT:
+That's about it!  Thank you for trying my app <span class="emoji-outer emoji-sizer"><span class="emoji-inner" style="background: url(chrome-extension://immhpnclomdloikkpcefncmfgjbkojmh/emoji-data/sheet_apple_32.png);background-position:30.0235017626322% 4.054054054054054%;background-size:5418.75% 5418.75%" data-codepoints="1f44d"></span></span> if this helps you in anyway feel free to follow me on twitter for more tools and updates! ![](https://img.shields.io/twitter/follow/robswc.svg?style=social)
 
-Depending on your chrome version, you may need to download a different version of chrome driver.  You can check your Version of chrome by going here: chrome://settings/help
 
-If the app instantly closes itself, try downloading a chromedriver for your version of chrome from here:
 
-http://chromedriver.chromium.org/downloads
-
-Currently, since many are on different versions of chrome, this is the easiest/only solution for the moment.
-
-[what is chromedriver?](http://chromedriver.chromium.org/)
-
-Place both executables within the same folder and then run app.exe.  You will be brought to tradingview's log-in page.  You can either sign-in or hit enter.  It will then re-direct to the charts page.
-
-## Config/Settings
-If you are using the python version, you can set a username and password in the config file.  If the app is going to the chart before it is able to sign you in, set the sleep to 4 or higher.
