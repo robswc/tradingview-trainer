@@ -1,6 +1,6 @@
 ![demopic](img/tv-gui-banner.jpg)
 
-tv-trainer is an lightweight application written in **python** using selenium and Tkinter, designed to work with tradingview.com to help users practice their trading on **historical data**.
+tv-trainer is an lightweight application written in **python** using **selenium** and **Tkinter**, designed to work with tradingview.com to help users practice their trading on **historical data**.
 
 # Installation
 tv-trainer comes in two forms, the executable version and the python version.
@@ -12,9 +12,9 @@ tv-trainer comes in two forms, the executable version and the python version.
 # How to Use
 
 ## Getting Started
-To launch the executable version, double click the `app.exe` after extracting the .zip.  To launch the python version, run in a command line, in the `app.py` directory; `python app.py`.  After the app luanches, a browswer window to tradingview.com's sign-in page will open.  As of May 2019, you will need to have an account to access the replay function (accounts are free to create!).  Sign in with your credentials and then navigate to your chart.
+To launch the executable version, double click the `app.exe` after extracting the .zip.  To launch the python version, run in a command line, in the `app.py` directory; `python app.py`.  After the app luanches, a browswer window to tradingview.com's sign-in page will open.  **As of May 2019**, you will need to have an account to access the replay function (accounts are free to create!).  Sign in with your credentials and then navigate to your chart.
 
-Once you have configured your chart to your liking, you are ready to start! Click the `bar replay` button in the top nav bar of the chart.  Move the vertical red line to the time you wish to start practicing on the historical data and click.  Next, move to the tv-trainer window.  Click the `▮▶` next bar button.  This will advance the chart 1 bar and get the information to the tv-trainer app.  Keep in mind, the values you see in the tv-trainer app represent the close of the previous bar, values are only updated during user actions.  You are now ready to place your orders!
+Once you have configured your chart to your liking, you are ready to start! Click the `bar replay` button in the top nav bar of the chart.  Move the vertical red line to the time you wish to start practicing on the historical data and click.  Next, move to the tv-trainer window.  Click the `▮▶` next bar button.  This will advance the chart 1 bar and get the information to the tv-trainer app.  **Keep in mind**, the values you see in the tv-trainer app represent the close of the previous bar, values are only updated during user actions.  You are now ready to place your orders!
 
 ## Orders
 
@@ -44,7 +44,7 @@ This will list and show you how to fix the more common errors.
 
 ### About
 
-That's about it!  Thank you for trying my app <span class="emoji-outer emoji-sizer"><span class="emoji-inner" style="background: url(chrome-extension://immhpnclomdloikkpcefncmfgjbkojmh/emoji-data/sheet_apple_32.png);background-position:30.0235017626322% 4.054054054054054%;background-size:5418.75% 5418.75%" data-codepoints="1f44d"></span></span> if this helps you in anyway feel free to follow me on twitter for more tools and updates! ![](https://img.shields.io/twitter/follow/robswc.svg?style=social)
+That's about it!  Thank you for trying my app if this helps you in anyway feel free to follow me on twitter for more tools and updates! ![](https://img.shields.io/twitter/follow/robswc.svg?style=social) 
 
 
 
