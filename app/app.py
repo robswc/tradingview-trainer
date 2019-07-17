@@ -297,8 +297,11 @@ class Application(tk.Frame):
         self.update_labels()
 
     def get_ticker(self):
+        #ticker = driver.find_element_by_xpath(
+        #    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[1]/div'
+        #).text
         ticker = driver.find_element_by_xpath(
-            '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[1]/div'
+            '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[1]'
         ).text
         ticker = str(ticker).split(' ')
 
@@ -427,7 +430,7 @@ class Application(tk.Frame):
         print(self.limit_price.get())
         global is_playing
         try:
-            driver.find_element_by_xpath('/html/body/div[8]/div/div[2]/div[3]/div').click()
+            driver.find_element_by_xpath('/html/body/div[7]/div/div[2]/div[3]/div').click()
         except:
             try:
                 driver.find_element_by_xpath(config.custom_xpath_replay).click()
