@@ -2,6 +2,7 @@
 ![demopic](img/tv-gui-banner.jpg)
 
 ![](https://img.shields.io/github/license/robswc/tradingview-trainer.svg)
+![](https://img.shields.io/github/downloads/robswc/tradingview-trainer/total)
 ![](https://img.shields.io/github/commit-activity/y/robswc/tradingview-trainer.svg)
 ![](https://img.shields.io/github/repo-size/robswc/tradingview-trainer.svg)
 ![](https://img.shields.io/twitter/follow/robswc.svg?label=follow%20%40%20robswc&style=social)
