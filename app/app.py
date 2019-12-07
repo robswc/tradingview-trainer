@@ -37,7 +37,7 @@ from trade_exporting import write, read_all, clear_csv
 locale.setlocale(locale.LC_ALL, 'English_United States.1252')
 
 # Set variables
-config.initial_amount = 10000
+config.initial_amount = 100000
 account_value = float(config.initial_amount)
 is_playing = "▶"
 
@@ -300,34 +300,37 @@ class Application(tk.Frame):
         #ticker = driver.find_element_by_xpath(
         #    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[1]/div'
         #).text
-        ticker = driver.find_element_by_xpath(
-            '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/span[2]/div/div[1]'
-        ).text
-        ticker = str(ticker).split(' ')
+        try:
+            ticker = driver.find_element_by_xpath(
+                '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[2]/div[1]/div[1]/div[1]/div[1]'
+            ).text
+            ticker = str(ticker).split(' ')
 
-        print(ticker[0])
-        return str(ticker[0])
+            print(ticker[0])
+            return str(ticker[0])
+        except:
+            return 'None'
 
     def get_price_data(self, request):
         try:
             if request == 'o':
                 return float(driver.find_element_by_xpath(
-                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[1]/span[2]'
+                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div[2]/div/div[1]/div[2]'
                 ).text)
 
             if request == 'h':
                 return float(driver.find_element_by_xpath(
-                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[2]/span[2]'
+                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div[2]/div/div[2]/div[2]'
                 ).text)
 
             if request == 'l':
                 return float(driver.find_element_by_xpath(
-                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[3]/span[2]'
+                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div[2]/div/div[3]/div[2]'
                 ).text)
 
             if request == 'c':
                 return float(driver.find_element_by_xpath(
-                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]'
+                    '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div[2]/div/div[4]/div[2]'
                 ).text)
         except:
             return 0
@@ -373,7 +376,7 @@ class Application(tk.Frame):
     def get_last_price(self):
         try:
             last_price = driver.find_element_by_xpath(
-                '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[3]/div[1]/div/span[4]/span[2]'
+                '/html/body/div[1]/div[1]/div[3]/div[1]/div/table/tr[1]/td[2]/div/div[2]/div[1]/div[2]/div/div[4]/div[2]'
             ).text
             return float(last_price)
         except:
@@ -381,7 +384,9 @@ class Application(tk.Frame):
                 last_price = driver.find_element_by_xpath(config.custom_xpath_last_price).text
                 return float(last_price)
             except Exception as error:
-                self.show_error('last_value', str(error), 'Please report error here: ')
+                pass
+
+  #              self.show_error('last_value', str(error), 'Please report error here: ')
 
 
     # function to pass buy order to order engine.
