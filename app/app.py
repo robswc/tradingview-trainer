@@ -19,6 +19,7 @@ by @robswc
 # TODO add function to store and retrieve config xpaths.
 
 # Import necessary modules.
+from sys import platform
 from selenium import webdriver
 from tkinter import StringVar, messagebox
 import tkinter.font as tkFont
@@ -34,7 +35,13 @@ from trade_exporting import write, read_all, clear_csv
 
 
 # Set formatting for currency.
-locale.setlocale(locale.LC_ALL, 'English_United States.1252')
+if platform == "win32":
+    # Windows formatting
+    locale.setlocale(locale.LC_ALL, 'English_United States.1252')
+else: 
+    # Linux/OS X formatting
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
 
 # Set variables
 config.initial_amount = 100000
@@ -42,9 +49,7 @@ account_value = float(config.initial_amount)
 is_playing = "▶"
 
 # Check if csv file already exists, if not create it.
-if os.path.exists("trades.csv"):
-    pass
-else:
+if not os.path.exists("trades.csv"):
     trades_file = open("trades.csv", "w")
 
 # Set driver to chromedriver.exe
