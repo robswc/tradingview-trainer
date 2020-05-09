@@ -49,9 +49,7 @@ account_value = float(config.initial_amount)
 is_playing = "▶"
 
 # Check if csv file already exists, if not create it.
-if os.path.exists("trades.csv"):
-    pass
-else:
+if not os.path.exists("trades.csv"):
     trades_file = open("trades.csv", "w")
 
 # Set driver to chromedriver.exe
