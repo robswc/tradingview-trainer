@@ -21,6 +21,7 @@ by @robswc
 # Import necessary modules.
 from sys import platform
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from tkinter import StringVar, messagebox
 import tkinter.font as tkFont
 import tkinter as tk
@@ -56,7 +57,7 @@ if not os.path.exists("trades.csv"):
 # Try to initialize the driver, if it fails user will be told to update chrome or chromedriver.
 
 try:
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get("https://www.tradingview.com/#signin")
 except Exception as e:
     print('+ Error Involving Chrome Driver + \n')
