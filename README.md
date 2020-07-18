@@ -24,7 +24,7 @@ tv-trainer comes in two forms, the executable version and the python version.
 # How to Use
 
 ## Getting Started
-To launch the executable version, double click the `app.exe` after extracting the .zip.  To launch the python version, run in a command line, in the `app.py` directory; `python app.py`.  After the app luanches, a browswer window to tradingview.com's sign-in page will open.  **As of May 2019**, you will need to have an account to access the replay function (accounts are free to create!).  Sign in with your credentials and then navigate to your chart.
+To launch the executable version, double click the `app.exe` after extracting the .zip.  To launch the python version, run in a command line, in the `app.py` directory; `python app.py`.  After the app launches, a browser window to tradingview.com's sign-in page will open.  **As of May 2019**, you will need to have an account to access the replay function (accounts are free to create!).  Sign in with your credentials and then navigate to your chart.
 
 Once you have configured your chart to your liking, you are ready to start! Click the `bar replay` button in the top nav bar of the chart.  Move the vertical red line to the time you wish to start practicing on the historical data and click.  Next, move to the tv-trainer window.  Click the `▮▶` next bar button.  This will advance the chart 1 bar and get the information to the tv-trainer app.  **Keep in mind**, the values you see in the tv-trainer app represent the close of the previous bar, values are only updated during user actions.  You are now ready to place your orders!
 
